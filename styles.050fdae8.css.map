@@ -1,1 +1,0 @@
-{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,IACE,aAAc,CACd,UAAW,CACX,WACF,CACA,SACE,YAAa,CACb,cACF","file":"styles.050fdae8.css","sourceRoot":"..\\src","sourcesContent":["img {\r\n  display: block;\r\n  width: 100%;\r\n  height: auto;\r\n}\r\n.gallery {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n}\r\n"]}
