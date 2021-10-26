@@ -1,2 +1,0 @@
-img{display:block;width:100%;height:auto}.gallery{padding:0;display:flex;flex-wrap:wrap}.gallery>li{margin:15px;max-width:800px;flex-basis:calc(33.33333% - 30px)}.stats{justify-content:center}.stats,.stats-item{display:flex;align-items:center}.stats-item:not(:last-child){margin-right:30px}.card{list-style:none}
-/*# sourceMappingURL=/goit-js-hw-13-image-finder/styles.63819c6d.css.map */
