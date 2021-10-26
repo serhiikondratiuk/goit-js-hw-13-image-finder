@@ -16,7 +16,7 @@ const apiService = new ApiService();
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
-refs.gallery.addEventListener('click', onImageClick);
+refs.gallery.addEventListener('click', onLightboxOpen);
 
 function onSearch(e) {
  e.preventDefault();
@@ -58,7 +58,7 @@ function checkRequest() {
  }
 }
 
-function onImageClick(e) {
+function onLightboxOpen(e) {
  if (e.target.nodeName !== 'IMG') {
   return;
  }
