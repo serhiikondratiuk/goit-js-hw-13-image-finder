@@ -2,6 +2,8 @@ import cardTemplate from './templates/photoCard.hbs';
 import ApiService from './js/apiService';
 import { myError } from './js/pnotify';
 import { myNotice } from './js/pnotify';
+import * as basicLightbox from 'basiclightbox';
+import './css/lightBox.min.css';
 
 const refs = {
  gallery: document.querySelector('.gallery'),
@@ -14,6 +16,7 @@ const apiService = new ApiService();
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
+refs.gallery.addEventListener('click', onImageClick);
 
 function onSearch(e) {
  e.preventDefault();
@@ -53,4 +56,14 @@ function checkRequest() {
  if (apiService.query === '') {
   return myNotice();
  }
+}
+
+function onImageClick(e) {
+ if (e.target.nodeName !== 'IMG') {
+  return;
+ }
+ const instance = basicLightbox.create(
+  `<img src="${e.target.dataset.src}" width="800" height="600">`,
+ );
+ instance.show();
 }
