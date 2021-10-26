@@ -1,16 +1,56 @@
-import cardTemplate from "./templates/photoCard.hbs";
-import fetchData from "./js/apiService";
-const gallery = document.querySelector(".gallery");
-const input = document.querySelector("input");
-const debounce = require("lodash.debounce");
-input.addEventListener("input", debounce(onInputChange, 1500));
+import cardTemplate from './templates/photoCard.hbs';
+import ApiService from './js/apiService';
+import { myError } from './js/pnotify';
+import { myNotice } from './js/pnotify';
 
-function renderMarkup(data) {
-  const markupList = cardTemplate(data);
-  gallery.insertAdjacentHTML("beforeend", markupList);
+const refs = {
+ gallery: document.querySelector('.gallery'),
+ searchForm: document.querySelector('.search-form'),
+ loadMoreBtn: document.querySelector('.load-more-btn'),
+ wrapper: document.querySelector('.wrapper'),
+};
+
+const apiService = new ApiService();
+
+refs.searchForm.addEventListener('submit', onSearch);
+refs.loadMoreBtn.addEventListener('click', onLoadMore);
+
+function onSearch(e) {
+ e.preventDefault();
+ clearMarkup();
+ apiService.query = e.currentTarget.elements.query.value;
+ checkRequest();
+ apiService.resetPage();
+ if (apiService.query.length !== 0) {
+  apiService.fetchPhotos().then(renderMarkup);
+ }
 }
 
-function onInputChange(e) {
-  const searchQuery = e.target.value;
-  fetchData(searchQuery).then(renderMarkup);
+function onLoadMore() {
+ apiService.fetchPhotos().then(renderMarkup);
+ setTimeout(() => {
+  refs.wrapper.scrollIntoView({
+   behavior: 'smooth',
+   block: 'start',
+  });
+ }, 500);
+}
+
+function renderMarkup(data) {
+ if (data.length === 0) {
+  return myError();
+ } else if (data.length !== 0) {
+  refs.loadMoreBtn.classList.remove('is-hidden');
+ }
+ refs.gallery.insertAdjacentHTML('beforeend', cardTemplate(data));
+}
+
+function clearMarkup() {
+ refs.gallery.innerHTML = '';
+}
+
+function checkRequest() {
+ if (apiService.query === '') {
+  return myNotice();
+ }
 }
