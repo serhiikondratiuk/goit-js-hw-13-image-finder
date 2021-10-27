@@ -41,6 +41,7 @@ function onLoadMore() {
 
 function renderMarkup(data) {
  if (data.length === 0) {
+  refs.loadMoreBtn.classList.add('is-hidden');
   return myError();
  } else if (data.length !== 0) {
   refs.loadMoreBtn.classList.remove('is-hidden');
